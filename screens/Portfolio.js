@@ -33,7 +33,7 @@ const Portfolio = ({ getHoldings, myHoldings }) => {
                     paddingHorizontal: SIZES.padding,
                     borderBottomLeftRadius: 25,
                     borderBottomRightRadius: 25,
-                    backgroundColor: COLORS.gray
+                    backgroundColor: COLORS.white
                 }}
             >
                 <Text style={{ marginTop: 50, color: COLORS.white, ...FONTS.largeTitle }}>Portfolio</Text>
@@ -53,6 +53,7 @@ const Portfolio = ({ getHoldings, myHoldings }) => {
                 {renderCurrentBalanceSection}
 
                 {/* Chart */}
+                
 
                 {/* Your Assets  */}
 
