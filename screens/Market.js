@@ -16,12 +16,80 @@ import { constants, COLORS, FONTS, SIZES, icons } from '../constants'
 
 import { HeaderBar } from "../components"
 
+const marketTabs = constants.marketTabs.map((marketTab) => ({
+    ...marketTab,
+    ref: React.createRef()
+}))
 
+const Tabs = () => {
+    return (
+        <View
+            style={{
+                flexDirection: 'row',
+            }}
+        >
+            {/* Tabs */}
+            {marketTabs.map((item, index) => {
+                return (
+                    <TouchableOpacity
+                        key={`MarketTab-${index}`}
+                        style={{
+                            flex: 1
+                        }}
+                    //onPress
+                    >
+                        <View
+                            ref={item.ref}
+                            style={{
+                                paddingHorizontal: 15,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: 40
+                            }}
+                        >
+                            <Text style={{ color: COLORS.white, ...FONTS.h3 }}>{item.title}</Text>
+                        </View>
+
+
+
+
+
+                    </TouchableOpacity>
+                )
+            })}
+        </View>
+    )
+}
 const Market = ({ getCoinMarket, coins }) => {
 
     React.useEffect(() => {
         getCoinMarket()
     }, [])
+
+    function renderTabBar() {
+        return (
+            <View
+                style={{
+                    marginTop: SIZES.radius,
+                    marginHorizontal: SIZES.radius,
+                    borderRadius: SIZES.radius,
+                    backgroundColor: COLORS.gray
+                }}
+            >
+                <Tabs />
+            </View>
+        )
+    }
+
+    function renderButtons() {
+        return (
+            <View
+                
+            >
+
+            </View>
+        )
+    }
 
     return (
         <MainLayout>
@@ -37,8 +105,10 @@ const Market = ({ getCoinMarket, coins }) => {
                 />
 
                 {/* Tab Bar */}
+                {renderTabBar()}
 
                 {/* Buttons */}
+                {renderButtons()}
 
                 {/* Market List */}
 
