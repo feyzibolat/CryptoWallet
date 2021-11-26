@@ -43,7 +43,7 @@ const Portfolio = ({ getHoldings, myHoldings }) => {
             
             <BalanceInfo
                 title= "Current Balance"
-                displayAmount={totalWallet}
+                displayAmount={totalWallet.toFixed(2)}
                 changePct={percChange}
                 containerStyle={{
                     marginTop: SIZES.radius,
@@ -176,7 +176,7 @@ const Portfolio = ({ getHoldings, myHoldings }) => {
                                                 lineHeight: 15
                                             }}
                                         >
-                                            $ {item.total.toLocaleString()}
+                                            $ {item.total.toFixed(2).toLocaleString()}
                                         </Text>
 
                                         <Text

@@ -1,19 +1,63 @@
 import React from 'react';
 import {
     View,
-    Text
+    Text,
+    TouchableOpacity,
+    FlatList,
+    Animated,
+    Image,
 } from 'react-native';
 
-import { MainLayout } from "./"
+import { connect } from 'react-redux';
+import { getCoinMarket } from '../stores/market/marketActions';
 
-const Market = () => {
+import { MainLayout } from "./"
+import { constants, COLORS, FONTS, SIZES, icons } from '../constants'
+
+import { HeaderBar } from "../components"
+
+
+const Market = ({ getCoinMarket, coins }) => {
+
+    React.useEffect(() => {
+        getCoinMarket()
+    }, [])
+
     return (
         <MainLayout>
-            <View>
-                <Text>Market</Text>
+            <View
+                style={{
+                    flex: 1,
+                    backgroundColor: COLORS.black
+                }}
+            >
+                {/* Header */}
+                <HeaderBar
+                    title="Market"
+                />
+
+                {/* Tab Bar */}
+
+                {/* Buttons */}
+
+                {/* Market List */}
+
+
             </View>
         </MainLayout>
     )
 }
 
-export default Market;
+function mapStateToProps(state) {
+    return {
+        coins: state.marketReducer.coins
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getCoinMarket: (currency, orderBy, sparkline, priceChangePerc, perPage, page) => { return dispatch(getCoinMarket(currency, orderBy, sparkline, priceChangePerc, perPage, page)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Market);
