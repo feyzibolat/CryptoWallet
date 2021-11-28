@@ -14,7 +14,7 @@ import { getCoinMarket } from '../stores/market/marketActions';
 import { MainLayout } from "./"
 import { constants, COLORS, FONTS, SIZES, icons } from '../constants'
 
-import { HeaderBar } from "../components"
+import { HeaderBar, TextButton } from "../components"
 
 const marketTabs = constants.marketTabs.map((marketTab) => ({
     ...marketTab,
@@ -84,9 +84,29 @@ const Market = ({ getCoinMarket, coins }) => {
     function renderButtons() {
         return (
             <View
-                
+                style={{
+                    flexDirection: 'row',
+                    marginTop: SIZES.radius,
+                    marginHorizontal: SIZES.radius
+                }}
             >
+                <TextButton
+                    label="USD"
+                />
 
+                <TextButton
+                    label="% (7d)"
+                    containerStyle={{
+                        marginLeft: SIZES.base
+                    }}
+                />
+
+                <TextButton
+                    label="Top"
+                    containerStyle={{
+                        marginLeft: SIZES.base
+                    }}
+                />
             </View>
         )
     }
