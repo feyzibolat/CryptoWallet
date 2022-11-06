@@ -22,17 +22,17 @@ const marketTabs = constants.marketTabs.map((marketTab) => ({
     ref: React.createRef()
 }))
 
-const TabIndicator = ({measureLayout, scrollX}) => {
-    
+const TabIndicator = ({ measureLayout, scrollX }) => {
+
     const inputRange = marketTabs.map((_, i) => i * SIZES.width)
 
     const translateX = scrollX.interpolate({
         inputRange,
         outputRange: measureLayout.map(measure => measure.x)
     })
-    
+
     return (
-        <Animated.View 
+        <Animated.View
             style={{
                 position: 'absolute',
                 left: 0,
@@ -48,20 +48,20 @@ const TabIndicator = ({measureLayout, scrollX}) => {
     )
 }
 
-const Tabs = ({scrollX, onMarketTabPress}) => {
+const Tabs = ({ scrollX, onMarketTabPress }) => {
 
     const [measureLayout, setMeasureLayout] = React.useState([]);
     const containerRef = React.useRef()
 
     React.useEffect(() => {
         let ml = []
-        
+
         marketTabs.forEach(marketTab => {
             marketTab?.ref?.current?.measureLayout(
                 containerRef.current,
-                (x,y,width,height) => {
+                (x, y, width, height) => {
                     ml.push({
-                        x,y,width, height
+                        x, y, width, height
                     })
 
                     if (ml.height === marketTabs.length) {
@@ -80,7 +80,7 @@ const Tabs = ({scrollX, onMarketTabPress}) => {
             }}
         >
             {/* Tab Indicator */}
-            {measureLayout.length > 0 && <TabIndicator measureLayout={measureLayout} scrollX={scrollX} /> }
+            {measureLayout.length > 0 && <TabIndicator measureLayout={measureLayout} scrollX={scrollX} />}
 
             {/* Tabs */}
             {marketTabs.map((item, index) => {
@@ -90,7 +90,7 @@ const Tabs = ({scrollX, onMarketTabPress}) => {
                         style={{
                             flex: 1
                         }}
-                    onPress={() => onMarketTabPress(index)}
+                        onPress={() => onMarketTabPress(index)}
                     >
                         <View
                             ref={item.ref}
@@ -240,31 +240,7 @@ const Market = ({ getCoinMarket, coins }) => {
                                                 <Text style={{ marginLeft: SIZES.radius, color: COLORS.white, ...FONTS.h3 }}>{item.name}</Text>
                                             </View>
                                             {/* Line Chart */}
-                                            <LineChart
-                                                withVerticalLabels={false}
-                                                withHorizontalLabels={false}
-                                                withDots={false}
-                                                withInnerLines={false}
-                                                withVerticalLines={false}
-                                                withOuterLines={false}
-                                                data={{
-                                                    datasets: [
-                                                        {
-                                                            data: item.sparkline_in_7d.price
-                                                        }
-                                                    ]
-                                                }}
-                                                width={100}
-                                                height={60}
-                                                chartConfig={{
-                                                    color: () => priceColor,
-                                                    strokeWidth: 1.5
-                                                }}
-                                                bezier
-                                                style={{
-                                                    paddingRight: 0
-                                                }}
-                                            />
+
 
                                             {/* Figures */}
                                             <View
@@ -297,7 +273,7 @@ const Market = ({ getCoinMarket, coins }) => {
                                                                 height: 10,
                                                                 width: 10,
                                                                 tintColor: priceColor,
-                                                                transform: item.price_change_percentage_7d_in_currency > 0 ? [{ rotate: '45deg' }] : [{ rotate: '125deg'}]
+                                                                transform: item.price_change_percentage_7d_in_currency > 0 ? [{ rotate: '45deg' }] : [{ rotate: '125deg' }]
                                                             }}
                                                         />
                                                     }
@@ -309,7 +285,7 @@ const Market = ({ getCoinMarket, coins }) => {
                                                             ...FONTS.body5
                                                         }}
                                                     >
-                                                    {item.price_change_percentage_7d_in_currency.toFixed(2)}%
+                                                        {item.price_change_percentage_7d_in_currency.toFixed(2)}%
                                                     </Text>
                                                 </View>
                                             </View>

@@ -3,13 +3,13 @@ import {
     View,
     Text
 } from 'react-native';
-import {
-    ChartDot,
-    ChartPath,
-    ChartPathProvider,
-    ChartXLabel,
-    ChartYLabel, monotoneCubicInterpolation
-} from "@rainbow-me/animated-charts"
+// import {
+//     ChartDot,
+//     ChartPath,
+//     ChartPathProvider,
+//     ChartXLabel,
+//     ChartYLabel, monotoneCubicInterpolation
+// } from "@rainbow-me/animated-charts"
 import moment from "moment";
 
 import { SIZES, COLORS, FONTS, icons } from '../constants'
@@ -25,7 +25,7 @@ const Chart = ({ containerStyle, chartPrices }) => {
         }
     }) : []
 
-    let points = monotoneCubicInterpolation({ data, range: 40 })
+    // let points = monotoneCubicInterpolation({ data, range: 40 })
 
     const formatUSD = value => {
         'worklet';
@@ -53,7 +53,7 @@ const Chart = ({ containerStyle, chartPrices }) => {
     }
 
     const formatNumber = (value, roundingPoint) => {
-        if(value > 1e9){
+        if (value > 1e9) {
             return `${(value / 1e9).toFixed(roundingPoint)}B`
         } else if (value > 1e6) {
             return `${(value / 1e6).toFixed(roundingPoint)}M`
@@ -64,7 +64,7 @@ const Chart = ({ containerStyle, chartPrices }) => {
         }
     }
     const getYAxisLabelValues = () => {
-        if(chartPrices!= undefined) {
+        if (chartPrices != undefined) {
             let minValue = Math.min(...chartPrices)
             let maxValue = Math.max(...chartPrices)
 
@@ -74,7 +74,7 @@ const Chart = ({ containerStyle, chartPrices }) => {
             let lowerMidValue = (minValue + midValue) / 2
 
             let roundingPoint = 2
-            
+
             return [
                 formatNumber(maxValue, roundingPoint),
                 formatNumber(higgerMidValue, roundingPoint),
@@ -94,14 +94,14 @@ const Chart = ({ containerStyle, chartPrices }) => {
         >
             {/* Y Axis Label */}
             <View
-                 style={{
-                     position: 'absolute',
-                     left: SIZES.padding,
-                     top: 0,
-                     bottom: 0,
-                     justifyContent: 'space-between'
-                 }}
-            >   
+                style={{
+                    position: 'absolute',
+                    left: SIZES.padding,
+                    top: 0,
+                    bottom: 0,
+                    justifyContent: 'space-between'
+                }}
+            >
                 {
                     getYAxisLabelValues().map((item, index) => {
                         return (
@@ -121,77 +121,7 @@ const Chart = ({ containerStyle, chartPrices }) => {
             </View>
 
             {/* Chart */}
-            {
-                data.length > 0 &&
-                <ChartPathProvider
-                    data={{
-                        points,
-                        smoothingStrategy: 'bezier'
-                    }}
-                >
-                    <ChartPath
-                        height={150}
-                        width={SIZES.width}
-                        stroke={COLORS.lightGreen}
-                        strokeWidth={2}
-                    />
 
-                    <ChartDot>
-                        <View
-                            style={{
-                                position: 'absolute',
-                                left: -35,
-                                width: 80,
-                                alignItems: 'center',
-                                backgroundColor: COLORS.transparentBlack
-
-                            }}
-                        >
-                            {/* Dot */}
-                            <View
-                                style={{
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: 25,
-                                    height: 25,
-                                    borderRadius: 15,
-                                    backgroundColor: COLORS.white
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        width: 15,
-                                        height: 15,
-                                        borderRadius: 10,
-                                        backgroundColor: COLORS.lightGreen
-                                    }}
-                                >
-
-                                </View>
-                            </View>
-
-                            {/* Y-Label */}
-                            <ChartYLabel
-                                format={formatUSD}
-                                style={{
-                                    color: COLORS.white,
-                                    ...FONTS.body5
-                                }}
-                            />
-                            {/* X-Label */}
-                            <ChartXLabel
-                                format={formatDateTime}
-                                style={{
-                                    marginTop: 3,
-                                    color: COLORS.lightGray3,
-                                    ...FONTS.body5,
-                                    lineheight: 15
-                                }}
-                            />
-                        </View>
-                    </ChartDot>
-                </ChartPathProvider>
-            }
         </View>
     )
 }
